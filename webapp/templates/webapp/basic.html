@@ -3,32 +3,11 @@
 
 <head>
    	<title>Akash Rathore</title>
-	<meta charset="utf-8" />
-	{% load staticfiles %}
+    {% load staticfiles %}
+  <meta charset="utf-8" />
 	<link rel="stylesheet" href="{% static 'personal/css/bootstrap.min.css' %}" type = "text/css"/>
+  <link type="text/css" href="{% static 'personal/css/style.css' %}" rel="stylesheet"/>
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
-	
-	<style type="text/css">
-		html,
-		body {
-		  height:100%
-		}
-		.button {
-		position:fixed;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-	right:0;
-	bottom:190px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-	</style>
 
 
 <body class="body" style="background-color:#f6f6f6">
@@ -48,14 +27,14 @@
 				  </center>
 			  </div>
 		</div><hr>
-		
+
 <div id ="content">
 
-{% block content%} 
+{% block content%}
 {% endblock%}
 </div>
 <form name="index", id="index" action="/">
 <input type="submit" class="button" id ="submit" value="Restart">
-</form> 
+</form>
 </body>
 </html>

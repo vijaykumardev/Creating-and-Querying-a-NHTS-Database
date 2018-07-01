@@ -2,19 +2,19 @@
 
 {% block content %}
 <head>
-    {% load staticfiles %} 
-	
+    {% load staticfiles %}
+
 	<script type="text/javascript" src="{% static 'fusioncharts/js/jquery-3.3.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.js' %}"></script>
     <script type="text/javascript" src="{% static 'fusioncharts/js/themes/fusioncharts.theme.fint.js' %}"></script>
 	<script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts-jquery-plugin.js' %}"></script>
-	
+
 </head>
 <text>Aggregated</text></br>
 <text>Urban-Rural</text></br>
 <form method="POST" name="urbanruralForm" action="/nonquery/urbanrural/avgtripUR">
 {% csrf_token %}
-<select name="urbanrural" id="urbanrural" onchange="changeTextBox();">
+<select name="urbanrural" id="urbanrural" onchange="changeTextBox('urbanruralForm');">
 <option value="0" selected="selected">Choose an option</option>
  <option value="trippurposewhyto">Count of Trip based on Purpose</option>
 <option value="avgtrip" >Average Trip Miles</option>
@@ -24,36 +24,17 @@
 <option value="avgtriptimebystate" >Average Trip Time by State</option>
 <option value="avgtriptimebyrace"selected="true">Average Trip Time by Ethnicity</option>
 <option value="avgtriptimebyincome">Average Trip Time by Income</option>
- 
-</select>
-<script type="text/javascript">
 
-function changeTextBox()
-{
-  	var x = document.getElementsByName("urbanruralForm");
-	x[0].submit();
-	
-}
-</script>
+</select>
 </form>
 <div id="collapsible-panels">
             <h6><a href="1" id ="line">Graph(2009)</a></h6>
 			<div class="chart-example" style="width:100%" id="chart-containerLine">     </div>
-            
+
 </div>
 <text>Average Trip Time based on Race (in minutes) 2009</text>
-<button style="float: right;" onclick="exportTableToCSV('avgTripTimebyEthnicityUrbanRural.csv')">Click for CSV File</button>
-<style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;    
-}
-</style>
-<table style="width:100%" id="dataTable" >
+<button class="download-button" onclick="exportTableToCSV('AvgTripTimebyEthnicityUrbanRural2009.csv','#dataTable')">Click for CSV File</button>
+<table id="dataTable" >
 <tr>
 <th>Race</th>
 <th>Urban</th>
@@ -62,7 +43,7 @@ th, td {
 </tr>
 </tr>
 {% for j,k in result %}
-<tr>		
+<tr>
 <td>{{ethnicityV|get_item:j.hh_race}}</td>
 <td>{{j.trvlcmin__avg}} min</td>
 <td>{{k.trvlcmin__avg}} min</td>
@@ -72,7 +53,8 @@ th, td {
 
 <br></br>
 <text>Average Trip Time based on Race (in minutes) 2017</text>
-<table style="width:100%" id="dataTable17" >
+<button class="download-button" onclick="exportTableToCSV('AvgTripTimebyEthnicityUrbanRural2017.csv','#dataTable17')">Click for CSV File</button>
+<table id="dataTable17" >
 <tr>
 <th>Race</th>
 <th>Urban</th>
@@ -81,7 +63,7 @@ th, td {
 </tr>
 </tr>
 {% for j,k in result17 %}
-<tr>		
+<tr>
 <td>{{ethnicityV|get_item:j.hh_race}}</td>
 <td>{{j.trvlcmin__avg}} min</td>
 <td>{{k.trvlcmin__avg}} min</td>
@@ -156,4 +138,3 @@ function convertChartLine(){
 </script>
 <script type="text/javascript" src="{% static 'personal/js/functions.js' %}"></script>
 {% endblock %}
-

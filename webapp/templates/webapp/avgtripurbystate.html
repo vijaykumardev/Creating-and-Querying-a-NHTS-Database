@@ -4,8 +4,8 @@
 <text>Aggregated</text></br>
 <text>Urban-Rural</text></br>
 <head>
-    {% load staticfiles %} 
-	
+    {% load staticfiles %}
+
 	<script type="text/javascript" src="{% static 'fusioncharts/js/jquery-3.3.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.js' %}"></script>
     <script type="text/javascript" src="{% static 'fusioncharts/js/themes/fusioncharts.theme.fint.js' %}"></script>
@@ -13,7 +13,7 @@
 </head>
 <form method="POST" name="urbanruralForm" action="/nonquery/urbanrural/avgtripUR">
 {% csrf_token %}
-	<select name="urbanrural" id="urbanrural" onchange="changeTextBox();">
+	<select name="urbanrural" id="urbanrural" onchange="changeTextBox('urbanruralForm');">
   <option value="0" selected="selected">Choose an option</option>
    <option value="trippurposewhyto">Count of Trip based on Purpose</option>
   <option value="avgtrip">Average Trip Miles</option>
@@ -23,36 +23,17 @@
 <option value="avgtriptimebystate">Average Trip Time by State</option>
 <option value="avgtriptimebyrace">Average Trip Time by Ethnicity</option>
 <option value="avgtriptimebyincome">Average Trip Time by Income</option>
- 
-</select>
-<script type="text/javascript">
 
-function changeTextBox()
-{
-  	var x = document.getElementsByName("urbanruralForm");
-	x[0].submit();
-	
-}
-</script>
+</select>
 </form>
 <div id="collapsible-panels">
             <h6><a href="1" id ="line">Graph</a></h6>
 			<div class="chart-example" style="width:100%" id="chart-containerLine">     </div>
-            
+
 </div>
-<style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;    
-}
-</style>
 <text>Average Miles based on each State 2009</text>
-<button style="float: right;" onclick="exportTableToCSV('avgTripMilesbyStateUrbanRural2009.csv')">Click for CSV File</button>
-<table style="width:100%" id="dataTable" >
+<button class="download-button" onclick="exportTableToCSV('AvgTripMilesbyStateUrbanRural2009.csv','#dataTable')">Click for CSV File</button>
+<table id="dataTable" >
 <tr>
 <th>State</th>
 <th>Urban</th>
@@ -61,7 +42,7 @@ th, td {
 </tr>
 
 {% for j,k in result %}
-<tr>		
+<tr>
 <td>{{j.hhstate}}</td>
 <td>{{j.trpmiles__avg}} miles</td>
 <td>{{k.trpmiles__avg}} miles</td>
@@ -71,8 +52,8 @@ th, td {
 </table>
 <br></br>
 <text>Average Miles based on each State 2017</text>
-
-<table style="width:100%" id="dataTable17" >
+<button class="download-button" onclick="exportTableToCSV('AvgTripMilesbyStateUrbanRural2017.csv','#dataTable17')">Click for CSV File</button>
+<table id="dataTable17" >
 <tr>
 <th>State</th>
 <th>Urban</th>
@@ -81,7 +62,7 @@ th, td {
 </tr>
 
 {% for h,l in result317 %}
-<tr>		
+<tr>
 <td>{{h.hhstate}}</td>
 <td>{{h.trpmiles__avg}} miles</td>
 <td>{{l.trpmiles__avg}} miles</td>
@@ -157,4 +138,3 @@ function convertChartLine(){
 </script>
 <script type="text/javascript" src="{% static 'personal/js/functions.js' %}"></script>
 {% endblock %}
-

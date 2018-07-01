@@ -4,18 +4,18 @@
 <text>Aggregated</text></br>
 <text>State</text></br>
 <head>
-    {% load staticfiles %} 
-	
+    {% load staticfiles %}
+
 	<script type="text/javascript" src="{% static 'fusioncharts/js/jquery-3.3.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts.js' %}"></script>
     <script type="text/javascript" src="{% static 'fusioncharts/js/themes/fusioncharts.theme.fint.js' %}"></script>
 	<script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts-jquery-plugin.js' %}"></script>
-	
+
   </head>
 <form method="POST" name="stateForm" action="/nonquery/state/stateaction">
 
 {% csrf_token %}
-	<select name="state" id="state" onchange="changeTextBox();">
+	<select name="state" id="state" onchange="changeTextBox('stateForm');">
   <option value="0" >Choose an option</option>
   <option value="totalvehcount" selected="true">Total Vehicle Count</option>
   <option value="avgtripmilesbystate">Average Trip Miles by State</option>
@@ -23,15 +23,6 @@
 
 </select>
 
-<script type="text/javascript">
-
-function changeTextBox()
-{
-  	var x = document.getElementsByName("stateForm");
-	x[0].submit();
-	
-}
-</script>
 </form>
 <div id="collapsible-panels">
             <h6><a href="1" id ="line">Line Graph 2009</a></h6>
@@ -39,19 +30,9 @@ function changeTextBox()
             <h6><a href="2" id ="bar">Bar Graph 2009</a></h6>
             <div class="chart-example" id="chart-containerBar">     </div>
 </div>
-<style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;    
-}
-</style>
 <text>State Vehicle Count 2009</text>
-<button style="float: right;" onclick="exportTableToCSV('stateVehCount.csv')">Click for CSV File</button></br>
-<table style="width:100%" id="dataTable" name="dataTable">
+<button class="download-button" onclick="exportTableToCSV('StateVehCount2009.csv','#dataTable')">Click for CSV File</button></br>
+<table id="dataTable" name="dataTable">
 <tr>
 <th>State</th>
 <th>Total Number of Vehicles</th>
@@ -59,7 +40,7 @@ th, td {
 </tr>
 
 {% for c in result %}
-<tr>      
+<tr>
 <td>{{c.hhstate}}</td>
 <td>{{c.hhstate__count}} </td>
 </tr>
@@ -68,8 +49,8 @@ th, td {
 
 <br></br>
 <text>State Vehicle Count 2017</text>
-
-<table style="width:100%" id="dataTable17" name="dataTable17">
+<button class="download-button" onclick="exportTableToCSV('StateVehCount2017.csv','#dataTable17')">Click for CSV File</button></br>
+<table id="dataTable17" name="dataTable17">
 <tr>
 <th>State</th>
 <th>Total Number of Vehicles</th>
@@ -77,7 +58,7 @@ th, td {
 </tr>
 
 {% for c in result17 %}
-<tr>      
+<tr>
 <td>{{c.hhstate}}</td>
 <td>{{c.hhstate__count}} </td>
 </tr>
@@ -85,7 +66,7 @@ th, td {
 </table>
 
 <script type="text/javascript">
-function convertChartLine(){	
+function convertChartLine(){
 var getTabularData = function () {
         var table = document.getElementById('dataTable'),
             rows = table.children[0].children,
@@ -95,16 +76,16 @@ var getTabularData = function () {
             data = [];
        // get the table element and iterate over its children and extract the data
         for (i = 1, length = rows.length; i < length; i++) {
-            
+
             row = rows[i];
             data.push({
                 label: row.children[0].innerHTML,
                 value: row.children[1].innerHTML
             });
         }
-        
+
         return data;
-    };    
+    };
         var revenueChart = new FusionCharts({
         type: 'line',
         renderAt: 'chart-containerLine',
@@ -128,7 +109,7 @@ var getTabularData = function () {
     });
     revenueChart.render();
 }
-function convertChartBar(){	
+function convertChartBar(){
 
 var getTabularData = function () {
         var table = document.getElementById('dataTable'),
@@ -139,16 +120,16 @@ var getTabularData = function () {
             data = [];
        // get the table element and iterate over its children and extract the data
         for (i = 1, length = rows.length; i < length; i++) {
-            
+
             row = rows[i];
             data.push({
                 label: row.children[0].innerHTML,
                 value: row.children[1].innerHTML
             });
         }
-        
+
         return data;
-    };    
+    };
         var revenueChart = new FusionCharts({
         type: 'column2D',
         renderAt: 'chart-containerBar',
@@ -176,4 +157,3 @@ var getTabularData = function () {
 </script>
 <script type="text/javascript" src="{% static 'personal/js/functions.js' %}"></script>
 {% endblock %}
-
