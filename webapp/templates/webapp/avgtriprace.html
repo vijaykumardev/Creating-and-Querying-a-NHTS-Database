@@ -25,11 +25,16 @@
 </select>
 </form>
 <div id="collapsible-panels">
-            <h6><a href="1" id ="line">Line Graph(2009)</a></h6>
-			<div class="chart-example" id="chart-containerLine">     </div>
-            <h6><a href="2" id ="bar">Bar Graph(2009)</a></h6>
-            <div class="chart-example" id="chart-containerBar">     </div>
+      <h6><a href="1" id ="line-2009" title="Average Trip Miles by Ethnicity" x-axis="Ethnicity" y-axis="Average Trip Miles" type="line">Line Graph for 2009 data</a></h6>
+			<div class="chart-render" id="line-2009-render"></div>
+      <h6><a href="2" id ="line-2017" title="Average Trip Miles by Ethnicity" x-axis="Ethnicity" y-axis="Average Trip Miles" type="line">Line Graph for 2017 data</a></h6>
+			<div class="chart-render" id="line-2017-render"></div>
+      <h6><a href="3" id ="bar-2009" title="Average Trip Miles by Ethnicity" x-axis="Ethnicity" y-axis="Average Trip Miles" type="column2D">Bar Graph for 2009 data</a></h6>
+			<div class="chart-render" id="bar-2009-render"></div>
+      <h6><a href="4" id ="bar-2017" title="Average Trip Miles by Ethnicity" x-axis="Ethnicity" y-axis="Average Trip Miles" type="column2D">Bar Graph for 2017 data</a></h6>
+			<div class="chart-render" id="bar-2017-render"></div>
 </div>
+<div class="table-container">
 <text>Average Miles based on Ethnicity (USA) 2009</text>
 <button class="download-button" onclick="exportTableToCSV('avgtripbyraceUSA.csv','#dataTable')">Click for CSV File</button>
 <table id="dataTable" style="width:100%">
@@ -46,7 +51,9 @@
 </tr>
 {% endfor %}
 </table>
+</div>
 <br></br>
+<div class="table-container">
 <text>Average Miles based on Ethnicity (USA) 2017</text>
 <button class="download-button" onclick="exportTableToCSV('AvgTripByRaceUSA2017.csv','#dataTable17')">Click for CSV File</button>
 <table id="dataTable17" style="width:100%">
@@ -63,94 +70,6 @@
 </tr>
 {% endfor %}
 </table>
-<script type="text/javascript">
-function convertChartLine(caption,xAxisName){
-var getTabularData = function () {
-        var table = document.getElementById('dataTable'),
-            rows = table.children[0].children,
-            row,
-            i,
-            length,
-            data = [];
-       // get the table element and iterate over its children and extract the data
-        for (i = 1, length = rows.length; i < length; i++) {
-
-            row = rows[i];
-            data.push({
-                label: row.children[0].innerHTML,
-                value: row.children[1].innerHTML
-            });
-        }
-
-        return data;
-    };
-        var revenueChart = new FusionCharts({
-        type: 'line',
-        renderAt: 'chart-containerLine',
-        width: '1000',
-        height: '450',
-        dataFormat: 'json',
-        id: 'line-chart',
-        dataSource: {
-            "chart": {
-                "caption": "Average Trip Miles by Ethnicity",
-                "subCaption": "",
-                "xAxisName": "Ethnicity",
-                "yAxisName": "Average Trip Miles",
-                "numberPrefix": "",
-                "theme": "fint",
-                "rotateValues": "1",
-                "exportEnabled": "1"
-            },
-            "data": getTabularData()
-        }
-    });
-    revenueChart.render();
-}
-function convertChartBar(caption,xAxisName){
-var getTabularData = function () {
-        var table = document.getElementById('dataTable'),
-            rows = table.children[0].children,
-            row,
-            i,
-            length,
-            data = [];
-       // get the table element and iterate over its children and extract the data
-        for (i = 1, length = rows.length; i < length; i++) {
-
-            row = rows[i];
-            data.push({
-                label: row.children[0].innerHTML,
-                value: row.children[1].innerHTML
-            });
-        }
-
-        return data;
-    };
-        var revenueChart = new FusionCharts({
-        type: 'column2D',
-        renderAt: 'chart-containerBar',
-        width: '1000',
-        height: '450',
-        dataFormat: 'json',
-        id: 'bar-chart',
-        dataSource: {
-            "chart": {
-                "caption": "Average Trip Miles by Ethnicity",
-                "subCaption": "",
-                "xAxisName": "Ethnicity",
-                "yAxisName": "Average Trip Miles",
-                "numberPrefix": "",
-                "theme": "fint",
-                "rotateValues": "1",
-                "exportEnabled": "1"
-            },
-            "data": getTabularData()
-        }
-    });
-    revenueChart.render();
-
-}
-</script>
+</div>
 <script type="text/javascript" src="{% static 'personal/js/functions.js' %}"></script>
 {% endblock %}

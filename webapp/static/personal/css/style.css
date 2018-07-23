@@ -18,6 +18,11 @@ html, body {
   cursor: pointer;
 }
 
+.table-container {
+  width: 70%;
+  margin: 3% auto 4%;
+}
+
 table {
   width: 100%;
 }
@@ -45,4 +50,8 @@ hr {
     border-style: inset;
     border-width: 1px;
 	border-top: 5px solid
+}
+
+.chart-render{
+  width:100%;
 }

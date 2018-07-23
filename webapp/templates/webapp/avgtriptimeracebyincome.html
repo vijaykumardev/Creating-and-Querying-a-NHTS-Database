@@ -1,8 +1,7 @@
-{% extends "webapp/basic.html" %}
-
-{% block content %}
+{% extends "webapp/basic.html" %} {% block content %}
 <text>Aggregated</text></br>
 <text>Ethnicity</text></br>
+
 <head>
 	{% load staticfiles %}
 	<script type="text/javascript" src="{% static 'fusioncharts/js/jquery-3.3.1.min.js' %}"></script>
@@ -11,7 +10,7 @@
 	<script type="text/javascript" src="{% static 'fusioncharts/js/fusioncharts-jquery-plugin.js' %}"></script>
 </head>
 <form method="POST" name="ethnicityForm" action="/nonquery/ethnicity/avgtriprace">
-{% csrf_token %}
+	{% csrf_token %}
 	<select name="ethnicity" id="ethnicity" onchange="changeTextBox('ethnicityForm');">
   <option value="0" selected="selected">Choose an option</option>
   <option value="avgtrip">Average Trip Miles</option>
@@ -23,40 +22,44 @@
 
 </select>
 </form>
-<text>Average Trip Time based on Income 2009</text>
-<button class="download-button" onclick="exportTableToCSV('AvgTripTimebyIncomebyEthnicity2009.csv','#dataTable')">Click for CSV File</button>
-<table id="dataTable">
-<tr>
-<th>Income</th>
-<th>Race</th>
-<th>Average time (in minutes)</th>
+<div class="table-container">
+	<text>Average Trip Time based on Income 2009</text>
+	<button class="download-button" onclick="exportTableToCSV('AvgTripTimebyIncomebyEthnicity2009.csv','#dataTable')">Click for CSV File</button>
+	<table id="dataTable">
+		<tr>
+			<th>Income</th>
+			<th>Race</th>
+			<th>Average time (in minutes)</th>
 
-</tr>
-{% for j in result1 %}
-<tr>
-<td>{{incomeV|get_item:j.hhfaminc}}</td>
-<td>{{ethnicityV|get_item:j.hh_race}}</td>
-<td>{{j.trvlcmin__avg}} min</td>
-</tr>
-{% endfor %}
-</table>
+		</tr>
+		{% for j in result1 %}
+		<tr>
+			<td>{{incomeV|get_item:j.hhfaminc}}</td>
+			<td>{{ethnicityV|get_item:j.hh_race}}</td>
+			<td>{{j.trvlcmin__avg}} min</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
 <br></br>
-<text>Average Trip Time based on Income 2017</text>
-<button class="download-button" onclick="exportTableToCSV('AvgTripTimebyIncomebyEthnicity2017.csv','#dataTable17')">Click for CSV File</button>
-<table id ="dataTable17">
-<tr>
-<th>Income</th>
-<th>Race</th>
-<th>Average time (in minutes)</th>
+<div class="table-container">
+	<text>Average Trip Time based on Income 2017</text>
+	<button class="download-button" onclick="exportTableToCSV('AvgTripTimebyIncomebyEthnicity2017.csv','#dataTable17')">Click for CSV File</button>
+	<table id="dataTable17">
+		<tr>
+			<th>Income</th>
+			<th>Race</th>
+			<th>Average time (in minutes)</th>
 
-</tr>
-{% for j in result17 %}
-<tr>
-<td>{{incomeV|get_item:j.hhfaminc}}</td>
-<td>{{ethnicityV|get_item:j.hh_race}}</td>
-<td>{{j.trvlcmin__avg}} min</td>
-</tr>
-{% endfor %}
-</table>
+		</tr>
+		{% for j in result17 %}
+		<tr>
+			<td>{{incomeV|get_item:j.hhfaminc}}</td>
+			<td>{{ethnicityV|get_item:j.hh_race}}</td>
+			<td>{{j.trvlcmin__avg}} min</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
 <script type="text/javascript" src="{% static 'personal/js/functions.js' %}"></script>
 {% endblock %}

@@ -20,6 +20,7 @@
 		<option value="avgtriptimebyincome">Average trip Time by Income</option>
 	</select>
 </form>
+<div class="table-container">
 <text>Average Miles based on State 2009</text>
 <button class="download-button" onclick="exportTableToCSV('AvgTripMilebyStatebyEthnicity2009.csv','#dataTable')">Click for CSV File</button>
 <table id="datatable">
@@ -36,7 +37,9 @@
 	</tr>
 	{% endfor %}
 </table>
+</div>
 <br></br>
+<div class="table-container">
 <text>Average Miles based on State 2017</text>
 <button class="download-button" onclick="exportTableToCSV('AvgTripMilebyStatebyEthnicity2017.csv','#dataTable17')">Click for CSV File</button>
 <table id="dataTable17">
@@ -54,5 +57,6 @@
 	{% endfor %}
 
 </table>
+</div>
 <script type="text/javascript" src="{% static 'personal/js/functions.js' %}"></script>
 {% endblock %}
